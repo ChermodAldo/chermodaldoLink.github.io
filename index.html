@@ -116,16 +116,20 @@
             const downloadLink = document.getElementById('downloadLink').value;
 
             if (telegramLink && downloadLink) {
-                // Tambahkan teks/angka ke link baru yang disimpan
-                const updatedTelegramLink = telegramLink + '-updated';
-                const updatedDownloadLink = downloadLink + '-new';
+                // Ambil array link yang ada di localStorage
+                const telegramLinks = JSON.parse(localStorage.getItem('telegramLinks')) || [];
+                const downloadLinks = JSON.parse(localStorage.getItem('downloadLinks')) || [];
 
-                // Simpan link baru ke localStorage
-                localStorage.setItem('telegramLink', updatedTelegramLink);
-                localStorage.setItem('downloadLink', updatedDownloadLink);
+                // Tambahkan link baru ke array
+                telegramLinks.push(telegramLink + '-updated');
+                downloadLinks.push(downloadLink + '-new');
 
-                // Tampilkan link baru di halaman admin
-                displayLinks(updatedTelegramLink, updatedDownloadLink);
+                // Simpan kembali ke localStorage
+                localStorage.setItem('telegramLinks', JSON.stringify(telegramLinks));
+                localStorage.setItem('downloadLinks', JSON.stringify(downloadLinks));
+
+                // Tampilkan semua link di halaman admin
+                displayLinks();
 
                 // Reset input fields
                 document.getElementById('telegramLink').value = '';
@@ -138,25 +142,31 @@
         }
 
         // Tampilkan link yang disimpan di halaman admin
-        function displayLinks(telegramLink, downloadLink) {
+        function displayLinks() {
+            const telegramLinks = JSON.parse(localStorage.getItem('telegramLinks')) || [];
+            const downloadLinks = JSON.parse(localStorage.getItem('downloadLinks')) || [];
             const linkHistory = document.getElementById('link-history');
-            const telegramItem = document.createElement('div');
-            const downloadItem = document.createElement('div');
+            linkHistory.innerHTML = ''; // Kosongkan daftar link sebelumnya
 
-            telegramItem.classList.add('link-item');
-            telegramItem.innerHTML = `
-                <span>${telegramLink}</span>
-                <button onclick="copyLink('${telegramLink}')">Salin</button>
-            `;
+            telegramLinks.forEach((link, index) => {
+                const telegramItem = document.createElement('div');
+                telegramItem.classList.add('link-item');
+                telegramItem.innerHTML = `
+                    <span>${link}</span>
+                    <button onclick="copyLink('${link}')">Salin</button>
+                `;
+                linkHistory.appendChild(telegramItem);
+            });
 
-            downloadItem.classList.add('link-item');
-            downloadItem.innerHTML = `
-                <span>${downloadLink}</span>
-                <button onclick="copyLink('${downloadLink}')">Salin</button>
-            `;
-
-            linkHistory.appendChild(telegramItem);
-            linkHistory.appendChild(downloadItem);
+            downloadLinks.forEach((link, index) => {
+                const downloadItem = document.createElement('div');
+                downloadItem.classList.add('link-item');
+                downloadItem.innerHTML = `
+                    <span>${link}</span>
+                    <button onclick="copyLink('${link}')">Salin</button>
+                `;
+                linkHistory.appendChild(downloadItem);
+            });
         }
 
         // Salin link ke clipboard
@@ -170,10 +180,7 @@
 
         // Load link dari localStorage ke form admin
         function loadLinks() {
-            const telegramLink = localStorage.getItem('telegramLink');
-            const downloadLink = localStorage.getItem('downloadLink');
-            if (telegramLink) document.getElementById('telegramLink').value = telegramLink;
-            if (downloadLink) document.getElementById('downloadLink').value = downloadLink;
+            displayLinks();
         }
 
         // Logout admin
@@ -184,20 +191,20 @@
 
         // Mode Pengguna: Tampilkan link download setelah klik Join Telegram
         document.getElementById('joinTelegram').addEventListener('click', function() {
-            const telegramLink = localStorage.getItem('telegramLink');
-            const downloadLink = localStorage.getItem('downloadLink');
+            const telegramLinks = JSON.parse(localStorage.getItem('telegramLinks')) || [];
+            const downloadLinks = JSON.parse(localStorage.getItem('downloadLinks')) || [];
 
-            if (!telegramLink || !downloadLink) {
+            if (telegramLinks.length === 0 || downloadLinks.length === 0) {
                 alert('Link belum diset oleh admin.');
                 return;
             }
 
             // Arahkan ke link Telegram terbaru
-            window.open(telegramLink, '_blank');
+            window.open(telegramLinks[telegramLinks.length - 1], '_blank'); // Menggunakan link terbaru
 
             // Tampilkan link download terbaru
             const downloadHref = document.getElementById('downloadHref');
-            downloadHref.href = downloadLink;
+            downloadHref.href = downloadLinks[downloadLinks.length - 1]; // Menggunakan link terbaru
             document.getElementById('download-link').style.display = 'block';
         });
 
@@ -211,12 +218,7 @@
 
         // Menampilkan halaman pengguna jika admin tidak login
         window.onload = function() {
-            if (!localStorage.getItem('telegramLink') || !localStorage.getItem('downloadLink')) {
-                document.getElementById('admin-login').style.display = 'none';
-                document.getElementById('user-page').style.display = 'block';
-            } else {
-                document.getElementById('user-page').style.display = 'block';
-            }
+            document.getElementById('user-page').style.display = 'block';
         };
     </script>
 
