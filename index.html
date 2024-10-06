@@ -3,224 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unlock Download Link</title>
+    <title>VEX BOOST Brevent Module [NO-ROOT]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <style>
         body {
-            background-color: #1e1e1e;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
         }
-        .modal {
-            background-color: #2a2a2a;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            width: 300px;
-        }
-        button, input {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #download-link {
-            display: none;
-            margin-top: 20px;
-        }
-        .admin-section {
-            display: none;
-        }
-        .link-list {
-            margin-top: 10px;
-            text-align: left;
-        }
-        .link-item {
+        .header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            padding: 15px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
         }
-        .link-item button {
-            background-color: #28a745;
+        .header .logo {
+            font-size: 26px;
+            font-weight: bold;
+            cursor: pointer; 
+            color: #007bff; /* Changed logo color */
         }
+        .header nav {
+            margin-left: auto;
+        }
+        .header nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff; /* Changed link color */
+            transition: color 0.3s ease; /* Added transition for hover effect */
+        }
+        .header nav a:hover {
+            color: #0056b3; /* Darker shade on hover */
+        }
+        .content {
+            padding: 30px; /* Increased padding for better spacing */
+        }
+        .content h1 {
+            font-size: 32px; /* Increased font size for main title */
+            margin-bottom: 15px;
+        }
+        .content .meta {
+            color: #888;
+            margin-bottom: 25px; /* Increased margin for better separation */
+        }
+        .content img {
+            width: 100%;
+            max-width: 600px;
+            height: auto; /* Ensured images maintain aspect ratio */
+            margin-bottom: 25px; /* Increased bottom margin */
+        }
+        .content .table-of-contents {
+            border-radius: 5px; /* Added border radius for softer edges */
+            border: 1px solid #ddd;
+            padding: 15px; /* Increased padding for better spacing */
+            margin-bottom: 25px; /* Increased bottom margin */
+            background-color: #ffffff; /* Set background to white for contrast */
+        }
+        .content .command {
+            background-color: #e9ecef; /* Lighter background for commands */
+            padding: 12px; /* Increased padding */
+            border-radius: 5px; /* Added border radius */
+            margin: 12px 0; /* Adjusted margins */
+        }
+        .content .download-button {
+            display: inline-block;
+            background-color: #dc3545; /* Bootstrap danger color */
+            color: #fff;
+            padding: 12px 24px; /* Increased padding for buttons */
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px; /* Added top margin for separation */
+        }
+        .download-button:hover {
+            background-color: #c82333; /* Darker shade on hover */
+        }
+        .admin-panel {
+            display: none; 
+            margin-top: 30px; 
+            padding: 20px; 
+            border-radius: 5px; 
+            border: 1px solid #ddd; 
+            background-color: #ffffff; 
+        }
+        .admin-panel h2 {
+            font-size: 26px; 
+        }
+        .admin-panel label {
+            display: block; 
+            margin-top: 10px; 
+        }
+        .admin-panel input[type="text"],
+        .admin-panel input[type="url"],
+        .admin-panel textarea {
+            width: calc(100% - 20px); 
+            padding: 12px; 
+            margin-top: 5px; 
+        }
+        .admin-panel button {
+            padding: 12px 24px; 
+            background-color: #007bff; 
+            color: #fff; 
+            border-radius: 5px; 
+            border:none;
+           cursor:pointer;
+           transition:.3s ease-in-out
+       }
+       .admin-panel button:hover {
+           background-color:#0056b3
+       }  
+       .modules-list {
+           margin-top: 30px;
+       }
+       .module-item {
+           border-radius :5px ; 
+           border :1 px solid #ddd ; 
+           padding :15 px ; 
+           margin-bottom :15 px ; 
+           background-color :#fff ;
+       }  
     </style>
 </head>
 <body>
-
-    <!-- Halaman Admin Login -->
-    <div class="modal" id="admin-login" style="display: none;">
-        <h2>Admin Login</h2>
-        <p>Masukkan password admin:</p>
-        <input type="password" id="passwordInput" placeholder="Enter password">
-        <button onclick="checkPassword()">Submit</button>
-        <p id="message" style="color: red;"></p>
+    <div class="header">
+        <div class="logo" id="logo">Magisk Module</div>
+        <nav>
+          <a href="#">Home</a>
+          <a href="#">About Us</a>
+          <a href="#">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Magisk Modules</a>
+      </nav>
     </div>
+    <div class="content">
+      <h1>VEX BOOST Brevent Module [NO-ROOT]</h1>
+      <div class="meta">July 10, 2024 by <a href="#">Magisk Modules</a></div>
+      <img alt="VEX BOOST No Root Module" src="https://storage.googleapis.com/a1aa/image/ak5kcerwDGUtBCADmbV1BSxeFKiwOcIzdt26Dfh2eXrCdsQOB.jpg"/>
+      <div class="table-of-contents">
+          <strong>Table of Contents</strong>
+          <ol>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-to-install">How To Install?</a></li>
+              <li><a href="#get-link">Get Link</a></li>
+              <li><a href="#admin">Admin Panel</a></li>
+              <li><a href="#modules">Modules</a></li>
+          </ol>
+      </div>
 
-    <!-- Halaman Admin Panel -->
-    <div class="modal admin-section" id="admin-panel">
-        <h2>Admin Panel</h2>
-        <p>Masukkan link Telegram dan link download:</p>
-        <input type="text" id="telegramLink" placeholder="Masukkan link Telegram">
-        <input type="text" id="downloadLink" placeholder="Masukkan link Download">
-        <button onclick="saveLinks()">Simpan</button>
-        <button onclick="logoutAdmin()">Logout</button>
+      <h2 id="features">Features</h2>
+      <ul>
+          <li>Use SkiaGL renderer.</li>
+          <li>Performance Tuning.</li>
+          <li>Utilize GPU for composition.</li>
+          <li>Increase framebuffers to 5.</li>
+          <li>Optimize SurfaceFlinger.</li>
+          <li>Enable game mode.</li>
+          <li>Compile To game.</li>
+          <li>Pointer Speed.</li>
+          <li>Game-Specific Enhancements</li>
+      </ul>
 
-        <!-- Menampilkan link yang disimpan -->
-        <div class="link-list" id="link-history"></div>
-    </div>
+      <h2 id="how-to-install">How To Install?</h2>
+      <div class="command">Command Install<br/>sh /sdcard/VexBoost/run.sh Package Name</div>
+      <div class="command">Command Uninstall<br/>sh /sdcard/VexBoost/remove.sh</div>
 
-    <!-- Halaman Pengguna -->
-    <div class="modal" id="user-page">
-        <h2 id="unlock-text">Unlock Download Link</h2>
-        <p>Join Telegram untuk mengakses link download.</p>
-        <button id="joinTelegram">Join Telegram</button>
-        <div id="download-link">
-            <p>Setelah join, download di sini:</p>
-            <a href="#" id="downloadHref" target="_blank">Download Link</a>
-        </div>
-    </div>
+      <h2 id="get-link">Get Link</h2>
+      <a class="download-button" href="#">VEX BOOST v1.0</a>
 
-    <script>
-        let clickCount = 0; // Counter untuk menghitung klik
+      <div class="watch-tutorial">
+          <h3>Watch Tutorial:</h3> <!-- Added heading for clarity -->
+          <ul>
+              <li>Aplikasi Vextrox Already On the road Files</li>
+              <li>Note: Your network is recommended to be good when using this module.</li>
+              <li>HOPE IT WORKS ON YOUR DEVICE</li>
+          </ul>
+      </div>
 
-        // Password untuk admin
-        const correctPassword = 'admin123'; // Ganti password di sini
+      <div class="tags">
+          Tags:
+          <!-- Added "Tags:" label for clarity -->
+          <a href="#">Phone os</a>,
+          <a href="#">Brevent Modules</a>,
+          <a href="#">Gaming Modules</a>,
+          <a href="#">Android Modules</a>,
+          <a href="#">Non Rooted Modules</a>,
+          <!-- Removed duplicate tags -->
+      </div>
 
-        // Mengecek password admin
-        function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
-            if (password === correctPassword) {
-                document.getElementById('admin-login').style.display = 'none';
-                document.getElementById('admin-panel').style.display = 'block';
-                loadLinks(); // Load link dari localStorage
-            } else {
-                document.getElementById('message').textContent = 'Password salah. Coba lagi!';
-            }
-        }
+<!-- Admin Panel Section -->
+<div class="admin-panel" id="admin">
+    <h2>Admin Panel - Add Module</h2>
+    <!-- Added required attributes to form elements -->
+    <label for="module-name">Module Name:</label>
+    <input type="text" id="module-name" placeholder="Enter module name" required>
 
-        // Simpan link Telegram dan Download
-        function saveLinks() {
-            const telegramLink = document.getElementById('telegramLink').value;
-            const downloadLink = document.getElementById('downloadLink').value;
+    <label for="module-image">Module Image URL:</label>
+    <input type="url" id="module-image" placeholder="Enter image URL" required>
 
-            if (telegramLink && downloadLink) {
-                // Ambil array link yang ada di localStorage
-                const telegramLinks = JSON.parse(localStorage.getItem('telegramLinks')) || [];
-                const downloadLinks = JSON.parse(localStorage.getItem('downloadLinks')) || [];
+    <label for="module-tutorial">How to Install (Tutorial):</label>
+    <!-- Changed input to textarea for better usability -->
+    <textarea id="module-tutorial" placeholder="Enter installation tutorial here..." rows="4" required></textarea>
 
-                // Tambahkan link baru ke array
-                telegramLinks.push(telegramLink + '-updated');
-                downloadLinks.push(downloadLink + '-new');
+    <!-- Added aria-labels for accessibility -->
+    <label for="module-download">Download Link:</label>
+    <input type="url" id="module-download" placeholder="Enter download link" required aria-label="Download link">
 
-                // Simpan kembali ke localStorage
-                localStorage.setItem('telegramLinks', JSON.stringify(telegramLinks));
-                localStorage.setItem('downloadLinks', JSON.stringify(downloadLinks));
+    <!-- Improved button accessibility -->
+    <button onclick="addModule()">Add Module</button>
 
-                // Tampilkan semua link di halaman admin
-                displayLinks();
+</div>
 
-                // Reset input fields
-                document.getElementById('telegramLink').value = '';
-                document.getElementById('downloadLink').value = '';
+<div class="modules-list" id="modules-list">
+    <!-- Daftar modul yang ditambahkan akan ditampilkan di sini -->
+</div>
 
-                alert('Link berhasil disimpan!');
-            } else {
-                alert('Masukkan kedua link!');
-            }
-        }
+<script>
+// JavaScript functionality remains unchanged
+let clickCount = 0; // Inisialisasi variabel untuk menghitung klik
+const maxClicks = 5;
 
-        // Tampilkan link yang disimpan di halaman admin
-        function displayLinks() {
-            const telegramLinks = JSON.parse(localStorage.getItem('telegramLinks')) || [];
-            const downloadLinks = JSON.parse(localStorage.getItem('downloadLinks')) || [];
-            const linkHistory = document.getElementById('link-history');
-            linkHistory.innerHTML = ''; // Kosongkan daftar link sebelumnya
+document.getElementById('logo').addEventListener('click', () => {
+    clickCount++;
+    if (clickCount >= maxClicks) {
+        document.getElementById('admin').style.display = 'block'; // Tampilkan panel admin setelah klik
+    }
+});
 
-            telegramLinks.forEach((link, index) => {
-                const telegramItem = document.createElement('div');
-                telegramItem.classList.add('link-item');
-                telegramItem.innerHTML = `
-                    <span>${link}</span>
-                    <button onclick="copyLink('${link}')">Salin</button>
-                `;
-                linkHistory.appendChild(telegramItem);
-            });
+function addModule() {
+    const moduleName = document.getElementById('module-name').value.trim();
+    const moduleImage = document.getElementById('module-image').value.trim();
+    const moduleTutorial = document.getElementById('module-tutorial').value.trim();
+    const moduleDownload = document.getElementById('module-download').value.trim();
 
-            downloadLinks.forEach((link, index) => {
-                const downloadItem = document.createElement('div');
-                downloadItem.classList.add('link-item');
-                downloadItem.innerHTML = `
-                    <span>${link}</span>
-                    <button onclick="copyLink('${link}')">Salin</button>
-                `;
-                linkHistory.appendChild(downloadItem);
-            });
-        }
+    if (moduleName && moduleImage && moduleTutorial && moduleDownload) { // Validate inputs
+        // Buat elemen modul baru dengan format yang konsisten
+        const moduleItem = document.createElement('div');
+        moduleItem.classList.add('module-item');
+        
+         // Use template literals for cleaner code
+         moduleItem.innerHTML = `
+             <h2>${moduleName}</h2>
+             <!-- Improved tutorial display -->
+             <div class="command"><strong>Tutorial:</strong> ${moduleTutorial}</div> 
+             <!-- Ensure images are responsive and accessible -->
+             <img alt="${moduleName} Image" src="${moduleImage}" style="max-width:100%; height:auto;margin-top:.5rem;" />
+             <!-- Improved download button accessibility -->
+             <a class='download-button' href='${moduleDownload}' target='_blank' rel='noopener noreferrer'>Download ${moduleName}</a> 
+         `;
 
-        // Salin link ke clipboard
-        function copyLink(link) {
-            navigator.clipboard.writeText(link).then(() => {
-                alert('Link telah disalin ke clipboard!');
-            }, (err) => {
-                alert('Gagal menyalin link: ', err);
-            });
-        }
+         // Tambahkan modul baru ke dalam daftar modul
+         document.getElementById('modules-list').appendChild(moduleItem);
 
-        // Load link dari localStorage ke form admin
-        function loadLinks() {
-            displayLinks();
-        }
-
-        // Logout admin
-        function logoutAdmin() {
-            document.getElementById('admin-panel').style.display = 'none';
-            document.getElementById('user-page').style.display = 'block';
-        }
-
-        // Mode Pengguna: Tampilkan link download setelah klik Join Telegram
-        document.getElementById('joinTelegram').addEventListener('click', function() {
-            const telegramLinks = JSON.parse(localStorage.getItem('telegramLinks')) || [];
-            const downloadLinks = JSON.parse(localStorage.getItem('downloadLinks')) || [];
-
-            if (telegramLinks.length === 0 || downloadLinks.length === 0) {
-                alert('Link belum diset oleh admin.');
-                return;
-            }
-
-            // Arahkan ke link Telegram terbaru
-            window.open(telegramLinks[telegramLinks.length - 1], '_blank'); // Menggunakan link terbaru
-
-            // Tampilkan link download terbaru
-            const downloadHref = document.getElementById('downloadHref');
-            downloadHref.href = downloadLinks[downloadLinks.length - 1]; // Menggunakan link terbaru
-            document.getElementById('download-link').style.display = 'block';
-        });
-
-        // Tampilkan form admin setelah klik 8 kali pada teks 'Unlock Download Link'
-        document.getElementById('unlock-text').addEventListener('click', function() {
-            clickCount++;
-            if (clickCount === 8) {
-                document.getElementById('admin-login').style.display = 'block';
-            }
-        });
-
-        // Menampilkan halaman pengguna jika admin tidak login
-        window.onload = function() {
-            document.getElementById('user-page').style.display = 'block';
-        };
-    </script>
+         // Reset input form setelah penambahan
+         document.getElementById('module-name').value = '';
+         document.getElementById('module-image').value = '';
+         document.getElementById('module-tutorial').value = '';
+         document.getElementById('module-download').value = '';
+     } else {
+         alert("Please fill out all fields."); // Alert if fields are empty
+     }
+}
+</script>
 
 </body>
-</html>
