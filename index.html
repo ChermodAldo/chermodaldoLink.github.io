@@ -69,11 +69,22 @@
             display: none;
             margin-top: 20px;
         }
+
+        #admin-login, #admin-section {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Bagian untuk Admin Login -->
+        <div id="admin-login">
+            <h1>Admin Login</h1>
+            <input type="password" id="adminPassword" placeholder="Masukkan Password Admin">
+            <button onclick="checkAdmin()">Login</button>
+        </div>
+
         <!-- Bagian untuk Admin Memasukkan Link -->
         <div id="admin-section">
             <h1>Admin: Masukkan Link</h1>
@@ -127,6 +138,7 @@
             const downloadLink = localStorage.getItem('downloadLink');
 
             if (telegramLink && downloadLink) {
+                document.getElementById('admin-login').style.display = 'none';
                 document.getElementById('admin-section').style.display = 'none';
                 document.getElementById('user-section').style.display = 'block';
                 document.getElementById('joinTelegramLink').href = telegramLink;
@@ -146,11 +158,41 @@
             document.getElementById('unlockBtn').innerText = 'Unlocked!';
         }
 
+        // Fungsi untuk menampilkan bagian login admin
+        function showAdminLogin() {
+            document.getElementById('admin-login').style.display = 'block';
+            document.getElementById('admin-section').style.display = 'none';
+            document.getElementById('user-section').style.display = 'none';
+        }
+
+        // Fungsi untuk mengecek password admin
+        function checkAdmin() {
+            const password = document.getElementById('adminPassword').value;
+
+            // Ganti '12345' dengan password yang kamu inginkan
+            if (password === '12345') {
+                alert('Login berhasil!');
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-section').style.display = 'block';
+            } else {
+                alert('Password salah!');
+            }
+        }
+
         // Cek apakah sudah ada link yang tersimpan di localStorage
         window.onload = function() {
-            showUserSection();
+            const telegramLink = localStorage.getItem('telegramLink');
+            const downloadLink = localStorage.getItem('downloadLink');
+            
+            if (telegramLink && downloadLink) {
+                // Jika ada link yang tersimpan, tampilkan bagian user
+                showUserSection();
+            } else {
+                // Jika tidak ada link, tampilkan bagian login admin
+                showAdminLogin();
+            }
         }
     </script>
 
 </body>
-  </html>
+    </html>
