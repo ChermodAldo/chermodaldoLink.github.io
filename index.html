@@ -44,6 +44,16 @@
         }
         .link-list {
             margin-top: 10px;
+            text-align: left;
+        }
+        .link-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .link-item button {
+            background-color: #28a745;
         }
     </style>
 </head>
@@ -66,6 +76,9 @@
         <input type="text" id="downloadLink" placeholder="Masukkan link Download">
         <button onclick="saveLinks()">Simpan</button>
         <button onclick="logoutAdmin()">Logout</button>
+
+        <!-- Menampilkan link yang disimpan -->
+        <div class="link-list" id="link-history"></div>
     </div>
 
     <!-- Halaman Pengguna -->
@@ -77,9 +90,6 @@
             <p>Setelah join, download di sini:</p>
             <a href="#" id="downloadHref" target="_blank">Download Link</a>
         </div>
-
-        <!-- Menampilkan link lama jika ada -->
-        <div id="link-history" class="link-list"></div>
     </div>
 
     <script>
@@ -106,12 +116,56 @@
             const downloadLink = document.getElementById('downloadLink').value;
 
             if (telegramLink && downloadLink) {
-                localStorage.setItem('telegramLink', telegramLink);
-                localStorage.setItem('downloadLink', downloadLink);
+                // Tambahkan teks/angka ke link baru yang disimpan
+                const updatedTelegramLink = telegramLink + '-updated';
+                const updatedDownloadLink = downloadLink + '-new';
+
+                // Simpan link baru ke localStorage
+                localStorage.setItem('telegramLink', updatedTelegramLink);
+                localStorage.setItem('downloadLink', updatedDownloadLink);
+
+                // Tampilkan link baru di halaman admin
+                displayLinks(updatedTelegramLink, updatedDownloadLink);
+
+                // Reset input fields
+                document.getElementById('telegramLink').value = '';
+                document.getElementById('downloadLink').value = '';
+
                 alert('Link berhasil disimpan!');
             } else {
                 alert('Masukkan kedua link!');
             }
+        }
+
+        // Tampilkan link yang disimpan di halaman admin
+        function displayLinks(telegramLink, downloadLink) {
+            const linkHistory = document.getElementById('link-history');
+            const telegramItem = document.createElement('div');
+            const downloadItem = document.createElement('div');
+
+            telegramItem.classList.add('link-item');
+            telegramItem.innerHTML = `
+                <span>${telegramLink}</span>
+                <button onclick="copyLink('${telegramLink}')">Salin</button>
+            `;
+
+            downloadItem.classList.add('link-item');
+            downloadItem.innerHTML = `
+                <span>${downloadLink}</span>
+                <button onclick="copyLink('${downloadLink}')">Salin</button>
+            `;
+
+            linkHistory.appendChild(telegramItem);
+            linkHistory.appendChild(downloadItem);
+        }
+
+        // Salin link ke clipboard
+        function copyLink(link) {
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link telah disalin ke clipboard!');
+            }, (err) => {
+                alert('Gagal menyalin link: ', err);
+            });
         }
 
         // Load link dari localStorage ke form admin
