@@ -42,6 +42,9 @@
         .admin-section {
             display: none;
         }
+        .link-list {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -74,6 +77,9 @@
             <p>Setelah join, download di sini:</p>
             <a href="#" id="downloadHref" target="_blank">Download Link</a>
         </div>
+
+        <!-- Menampilkan link lama jika ada -->
+        <div id="link-history" class="link-list"></div>
     </div>
 
     <script>
@@ -92,14 +98,25 @@
             }
         }
 
-        // Simpan link Telegram dan Download
+        // Simpan link Telegram dan Download (dengan riwayat link lama)
         function saveLinks() {
             const telegramLink = document.getElementById('telegramLink').value;
             const downloadLink = document.getElementById('downloadLink').value;
 
             if (telegramLink && downloadLink) {
+                let telegramHistory = JSON.parse(localStorage.getItem('telegramHistory')) || [];
+                let downloadHistory = JSON.parse(localStorage.getItem('downloadHistory')) || [];
+
+                // Tambahkan link baru ke riwayat
+                telegramHistory.push(telegramLink);
+                downloadHistory.push(downloadLink);
+
+                // Simpan link dan riwayat ke localStorage
                 localStorage.setItem('telegramLink', telegramLink);
                 localStorage.setItem('downloadLink', downloadLink);
+                localStorage.setItem('telegramHistory', JSON.stringify(telegramHistory));
+                localStorage.setItem('downloadHistory', JSON.stringify(downloadHistory));
+
                 alert('Link berhasil disimpan!');
             } else {
                 alert('Masukkan kedua link!');
@@ -130,14 +147,36 @@
                 return;
             }
 
-            // Arahkan ke link Telegram
+            // Arahkan ke link Telegram terbaru
             window.open(telegramLink, '_blank');
 
-            // Tampilkan link download
+            // Tampilkan link download terbaru
             const downloadHref = document.getElementById('downloadHref');
             downloadHref.href = downloadLink;
             document.getElementById('download-link').style.display = 'block';
         });
+
+        // Tampilkan riwayat link Telegram dan download yang lama
+        function showLinkHistory() {
+            const telegramHistory = JSON.parse(localStorage.getItem('telegramHistory')) || [];
+            const downloadHistory = JSON.parse(localStorage.getItem('downloadHistory')) || [];
+            const historyContainer = document.getElementById('link-history');
+
+            if (telegramHistory.length > 1) {
+                const historyTitle = document.createElement('p');
+                historyTitle.textContent = 'Riwayat Link Sebelumnya:';
+                historyContainer.appendChild(historyTitle);
+
+                telegramHistory.forEach((link, index) => {
+                    if (index < telegramHistory.length - 1) { // Jangan tampilkan link terbaru
+                        const historyItem = document.createElement('div');
+                        historyItem.innerHTML = `<a href="${link}" target="_blank">Telegram Lama ${index + 1}</a> | 
+                                                 <a href="${downloadHistory[index]}" target="_blank">Download Lama ${index + 1}</a>`;
+                        historyContainer.appendChild(historyItem);
+                    }
+                });
+            }
+        }
 
         // Menampilkan halaman pengguna jika admin tidak login
         window.onload = function() {
@@ -145,6 +184,7 @@
                 document.getElementById('admin-login').style.display = 'block';
             } else {
                 document.getElementById('user-page').style.display = 'block';
+                showLinkHistory(); // Menampilkan link lama di halaman pengguna
             }
         };
     </script>
