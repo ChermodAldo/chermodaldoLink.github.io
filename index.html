@@ -3,196 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Unlock Link</title>
+    <title>Unlock Download Link</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #1e1e2d;
-            color: #ffffff;
-            text-align: center;
-            margin: 0;
-            padding: 50px;
+            background-color: #1e1e1e;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            font-family: Arial, sans-serif;
         }
-
-        .container {
-            background-color: #2a2b3d;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            width: 100%;
+        .modal {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
         }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        input, button {
-            margin: 10px;
-            padding: 12px;
-            width: 80%;
-        }
-
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        .link-button {
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            padding: 12px;
-            display: block;
-            border-radius: 5px;
+        button, input {
             margin-top: 10px;
-            transition: background-color 0.3s ease;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
         }
-
-        .link-button:hover {
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
             background-color: #0056b3;
         }
-
-        #unlockBtn, #download-link {
+        #download-link {
             display: none;
             margin-top: 20px;
         }
-
-        #admin-login, #admin-section {
+        .admin-section {
             display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Bagian untuk Admin Login -->
-        <div id="admin-login">
-            <h1>Admin Login</h1>
-            <input type="password" id="adminPassword" placeholder="Masukkan Password Admin">
-            <button onclick="checkAdmin()">Login</button>
-        </div>
+    <!-- Halaman Admin Login -->
+    <div class="modal" id="admin-login">
+        <h2>Admin Login</h2>
+        <p>Masukkan password admin:</p>
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <button onclick="checkPassword()">Submit</button>
+        <p id="message" style="color: red;"></p>
+    </div>
 
-        <!-- Bagian untuk Admin Memasukkan Link -->
-        <div id="admin-section">
-            <h1>Admin: Masukkan Link</h1>
-            <input type="text" id="adminTelegramLink" placeholder="Masukkan link Telegram">
-            <input type="text" id="adminDownloadLink" placeholder="Masukkan link Download">
-            <button onclick="saveLinks()">Simpan Link</button>
-        </div>
+    <!-- Halaman Admin Panel -->
+    <div class="modal admin-section" id="admin-panel">
+        <h2>Admin Panel</h2>
+        <p>Masukkan link Telegram dan link download:</p>
+        <input type="text" id="telegramLink" placeholder="Masukkan link Telegram">
+        <input type="text" id="downloadLink" placeholder="Masukkan link Download">
+        <button onclick="saveLinks()">Simpan</button>
+        <button onclick="logoutAdmin()">Logout</button>
+    </div>
 
-        <!-- Bagian untuk User Akses Link -->
-        <div id="user-section" style="display:none;">
-            <h1>Unlock Download Link</h1>
-            <p>Join Telegram untuk mengakses link download.</p>
-
-            <!-- Tombol Join Telegram -->
-            <a href="#" target="_blank" id="joinTelegramLink" class="link-button" onclick="joinTelegram()">Join Telegram</a>
-
-            <!-- Tombol Unlock Download -->
-            <button id="unlockBtn" class="btn" onclick="showDownloadLink()">Unlock Download</button>
-
-            <!-- Link Download -->
-            <div id="download-link">
-                <p>Link download:</p>
-                <a href="#" id="downloadLink" class="link-button" target="_blank">Download File</a>
-            </div>
+    <!-- Halaman Pengguna -->
+    <div class="modal" id="user-page" style="display: none;">
+        <h2>Unlock Download Link</h2>
+        <p>Join Telegram untuk mengakses link download.</p>
+        <button id="joinTelegram">Join Telegram</button>
+        <div id="download-link">
+            <p>Setelah join, download di sini:</p>
+            <a href="#" id="downloadHref" target="_blank">Download Link</a>
         </div>
     </div>
 
     <script>
-        // Fungsi untuk menyimpan link dari admin ke localStorage
-        function saveLinks() {
-            const telegramLink = document.getElementById('adminTelegramLink').value;
-            const downloadLink = document.getElementById('adminDownloadLink').value;
+        // Password untuk admin
+        const correctPassword = 'admin123'; // Ganti password di sini
 
-            if (telegramLink === '' || downloadLink === '') {
-                alert('Silakan masukkan kedua link!');
+        // Mengecek password admin
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === correctPassword) {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                loadLinks(); // Load link dari localStorage
+            } else {
+                document.getElementById('message').textContent = 'Password salah. Coba lagi!';
+            }
+        }
+
+        // Simpan link Telegram dan Download
+        function saveLinks() {
+            const telegramLink = document.getElementById('telegramLink').value;
+            const downloadLink = document.getElementById('downloadLink').value;
+
+            if (telegramLink && downloadLink) {
+                localStorage.setItem('telegramLink', telegramLink);
+                localStorage.setItem('downloadLink', downloadLink);
+                alert('Link berhasil disimpan!');
+            } else {
+                alert('Masukkan kedua link!');
+            }
+        }
+
+        // Load link dari localStorage ke form admin
+        function loadLinks() {
+            const telegramLink = localStorage.getItem('telegramLink');
+            const downloadLink = localStorage.getItem('downloadLink');
+            if (telegramLink) document.getElementById('telegramLink').value = telegramLink;
+            if (downloadLink) document.getElementById('downloadLink').value = downloadLink;
+        }
+
+        // Logout admin
+        function logoutAdmin() {
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('admin-login').style.display = 'block';
+        }
+
+        // Mode Pengguna: Tampilkan link download setelah klik Join Telegram
+        document.getElementById('joinTelegram').addEventListener('click', function() {
+            const telegramLink = localStorage.getItem('telegramLink');
+            const downloadLink = localStorage.getItem('downloadLink');
+
+            if (!telegramLink || !downloadLink) {
+                alert('Link belum diset oleh admin.');
                 return;
             }
 
-            // Simpan link ke localStorage
-            localStorage.setItem('telegramLink', telegramLink);
-            localStorage.setItem('downloadLink', downloadLink);
+            // Arahkan ke link Telegram
+            window.open(telegramLink, '_blank');
 
-            alert('Link berhasil disimpan!');
-            // Tampilkan bagian user
-            showUserSection();
-        }
-
-        // Fungsi untuk menampilkan bagian user setelah admin input
-        function showUserSection() {
-            const telegramLink = localStorage.getItem('telegramLink');
-            const downloadLink = localStorage.getItem('downloadLink');
-
-            if (telegramLink && downloadLink) {
-                document.getElementById('admin-login').style.display = 'none';
-                document.getElementById('admin-section').style.display = 'none';
-                document.getElementById('user-section').style.display = 'block';
-                document.getElementById('joinTelegramLink').href = telegramLink;
-                document.getElementById('downloadLink').href = downloadLink;
-            }
-        }
-
-        // Fungsi untuk mendeteksi klik tombol Join Telegram
-        function joinTelegram() {
-            document.getElementById('unlockBtn').style.display = 'block';
-        }
-
-        // Fungsi untuk menampilkan link download
-        function showDownloadLink() {
+            // Tampilkan link download
+            const downloadHref = document.getElementById('downloadHref');
+            downloadHref.href = downloadLink;
             document.getElementById('download-link').style.display = 'block';
-            document.getElementById('unlockBtn').disabled = true;
-            document.getElementById('unlockBtn').innerText = 'Unlocked!';
-        }
+        });
 
-        // Fungsi untuk menampilkan bagian login admin
-        function showAdminLogin() {
-            document.getElementById('admin-login').style.display = 'block';
-            document.getElementById('admin-section').style.display = 'none';
-            document.getElementById('user-section').style.display = 'none';
-        }
-
-        // Fungsi untuk mengecek password admin
-        function checkAdmin() {
-            const password = document.getElementById('adminPassword').value;
-
-            // Ganti '12345' dengan password yang kamu inginkan
-            if (password === '12345') {
-                alert('Login berhasil!');
-                document.getElementById('admin-login').style.display = 'none';
-                document.getElementById('admin-section').style.display = 'block';
-            } else {
-                alert('Password salah!');
-            }
-        }
-        showAdminLogin();
-
-        // Cek apakah sudah ada link yang tersimpan di localStorage
+        // Menampilkan halaman pengguna jika admin tidak login
         window.onload = function() {
-            const telegramLink = localStorage.getItem('telegramLink');
-            const downloadLink = localStorage.getItem('downloadLink');
-            
-            if (telegramLink && downloadLink) {
-                // Jika ada link yang tersimpan, tampilkan bagian user
-                showUserSection();
+            if (!localStorage.getItem('telegramLink') || !localStorage.getItem('downloadLink')) {
+                document.getElementById('admin-login').style.display = 'block';
             } else {
-                // Jika tidak ada link, tampilkan bagian login admin
-                showAdminLogin();
+                document.getElementById('user-page').style.display = 'block';
             }
-        }
+        };
     </script>
 
 </body>
